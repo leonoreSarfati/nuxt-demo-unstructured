@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: white;
+  font-family: sans-serif;
+}
+
+
+/*COLORS*/
+:root {
+  --primary: #FD43A0;
+  --medium: #1D1D1D;
+  --medium-light: #FFFFFFB2;
+  --light: #FFFFFF;
+  --dark: #000000;
+}
+
+
+/* TEXTS */
+.site-title {
+  font-size: 36px; 
+  font-weight: bold;
+  color: var(--primary);
+  margin:4px;
+}
+
+.huge-title {
+  font-size: 64px;
+  font-weight: bold;
+  color: var(--light);
+  margin:4px;
+}
+
+.big-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--light);
+  margin:4px;
+}
+
+.medium-title {
+  font-size: 20px;
+  font-weight: semi-bold;
+  color: var(--light);
+  margin:4px;
+}
+
+.small-title {
+  font-size: 16px;
+  font-weight: semi-bold;
+  color: var(--light);
+  margin:4px;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: normal;
+  color: var(--light);
+  margin:4px;
+}
+
+.small-text {
+  font-size: 14px;
+  font-weight: normal;
+  color: var(--medium-light);
+}
+
+.text-link {
+  font-size: 16px;
+  font-weight: semi-bold;
+  color: var(--primary);
+  text-decoration: underline;
+  margin:4px;
+}
+
+
+input {
+  background-color: var(--medium); /* ou une couleur hex comme #1D1D1D */
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
