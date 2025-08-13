@@ -5,7 +5,9 @@
         <h1>MovieSpot</h1>
       </div>
       <div class="header-right">
-        <ElementButton v-if="route.path == '/'" label="S'identifier" @click="onLogin" ></ElementButton>
+        <button v-if="route.path == '/'" class="base-button small-title" @click="onLogin">
+          S'identifier
+        </button>
       </div>
     </header>
     <main>
@@ -42,5 +44,31 @@ function onLogin() {
   margin: 0;
 }
 
+.base-button {
+  background-color: #FD43A0;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin:8px;
+}
 
+.base-button:hover {
+  filter: brightness(0.85);
+}
+
+.site-title {
+  font-size: 36px; 
+  font-weight: bold;
+  color: #FD43A0;
+  margin:4px;
+}
+
+.small-title {
+  font-size: 16px;
+  font-weight: semi-bold;
+  color: #FFFFFF;
+  margin:4px;
+}
 </style>

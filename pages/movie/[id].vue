@@ -15,15 +15,15 @@
         <p><strong>Director:</strong> {{ movie.director }}</p>
         <p><strong>Rating:</strong> {{ movie.rating }}</p>
         <div class="movie-actions">
-          <ElementIcon
-            icon="EyeIcon"
-            :movie-id="movie.id"
-            active-class="watched"
+          <component
+              :is="IconEye"
+              :class="['icon', isActive('watched', movie.id) ? 'icon-watched' : 'text-white']"
+              @click="addToList($event,'watched', movie.id)"
           />
-          <ElementIcon
-            icon="HeartIcon"
-            :movie-id="movie.id"
-            active-class="favorite"
+          <component
+              :is="IconHeart"
+              :class="['icon', isActive('favorite', movie.id) ? 'icon-liked' : 'text-white']"
+              @click="addToList($event,'favorite', movie.id)"
           />
         </div>
       </div>
@@ -33,11 +33,27 @@
       <h2>Reviews</h2>
       
       <div v-if="reviews.length">
-        <ReviewItem
+        <!-- <ReviewItem
           v-for="review in reviews"
           :key="review.id"
           :review="review"
-        />
+        /> -->
+
+        <div v-for="review in reviews" class="review-card">
+          <div class="review-header">
+            <div class="medium-title">{{ review.userId }}</div>
+            <div class="review-stars">
+              <span v-for="n in 5" :key="n" class="star" :class="{ 'filled': n <= review.rating }">
+              ★
+              </span>
+
+            </div>
+          </div>
+          <p v-if="review.comment" class="small-text">{{ review.comment }}</p>
+          <div class="review-date">{{ formatDate(review.createdAt) }}</div>
+        </div>
+
+        
       </div>
       <p v-else class="text-gray-500 italic">Aucun avis pour ce film pour le moment.</p>
 
@@ -46,23 +62,64 @@
 </template>
 
 <script setup lang="ts">
+import * as HeroIcons from '@heroicons/vue/24/solid'
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
-import type { Movie } from '~/types/movie'
-import type { Review } from '~/types/review'
-const { getMovieById } = useMovies()
+import { moviesData } from '~/data/movies'
+import { reviewsData } from '~/data/reviews'
 
-const movie = ref<Movie | null>(null)
+
+const movie = ref(null)
 const route = useRoute()
 
-const { getReviewsByMovieId } = useReviews()
-const reviews = ref<Review[]>([])
+
+const reviews = ref([])
 
 onMounted(async () => {
   const id = Number(route.params.id)
   movie.value = await getMovieById(id)
   reviews.value = await getReviewsByMovieId(id)
 })
+
+const IconHeart = HeroIcons["HeartIcon"] || null
+const IconEye = HeroIcons["EyeIcon"] || null
+const userStore = useUserStore()
+
+
+const isActive = (activeClass, movieId) => {
+  if (activeClass === 'watched') {
+    return userStore.user.watchedMovies.includes(movieId)
+  } else if (activeClass === 'favorite') {
+    return userStore.user.favoriteMovies.includes(movieId)
+  }
+  return false
+}
+
+const addToList = (event: MouseEvent, activeClass, movieId) => {
+    event.stopPropagation();
+  if (activeClass === 'watched') {
+    userStore.addToWatched(movieId)
+  } else if (activeClass === 'favorite') {
+    userStore.addToFavorite(movieId)
+  }
+}
+
+function formatDate(dateStr: string) {
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+const getMovieById = async (id) => {
+    return moviesData.find((movie) => movie.id === id) || null
+  }
+
+const getReviewsByMovieId = (movieId: number) => {
+    return reviewsData.filter(review => review.movieId === movieId)
+  }
 </script>
 
 <style scoped>
@@ -117,4 +174,56 @@ onMounted(async () => {
 .reviews-section h2 {
   margin-bottom: 16px;
 }
+
+.icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.icon:hover {
+  transform: scale(1.2);
+}
+
+.icon-liked {
+  color: #ef4444;
+}
+
+.icon-watched {
+  color: #22c55e;
+}
+
+.review-card {
+  background-color: #1D1D1D; 
+  border-radius: 12px;       
+  padding: 16px;            
+  margin-bottom: 16px;      
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+  border: 1px solid #1D1D1D; 
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.small-text {
+  font-size: 14px;
+  font-weight: normal;
+  color: #FFFFFFB2;
+}
+
+.review-date {
+  font-size: 0.75rem; /* 12px */
+  color: #6b7280; /* gris clair */
+}
+
+.review-stars {
+  display: flex;
+  gap: 4px;
+  color: #fbbf24; /* jaune doré */
+}
+
 </style>

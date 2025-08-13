@@ -1,15 +1,14 @@
 // stores/user.ts
 import { defineStore } from 'pinia'
-import type { User } from '~/types/user'
-import { useUsers } from '~/composables/useUsers'
+
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    user: {} as User,
+    user: {} ,
   }),
 
   actions: {
-    setUser(user: User) {
+    setUser(user) {
       this.user = user
     },
 
@@ -22,7 +21,7 @@ export const useUserStore = defineStore('user', {
     },
 
     async addToFavorite(movieId: number) {
-      const usersApi = useUsers()
+      
 
       if (this.user.favoriteMovies.includes(movieId)) {
         this.user.favoriteMovies = this.user.favoriteMovies.filter(id => id !== movieId)
@@ -30,7 +29,7 @@ export const useUserStore = defineStore('user', {
         this.user.favoriteMovies.push(movieId)
       }
 
-      await usersApi.addFavorite(this.user.id, movieId)
+      
     },
   },
 })
