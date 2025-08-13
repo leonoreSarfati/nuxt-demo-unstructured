@@ -1,6 +1,6 @@
 import type { Review } from '~/types/review'
 
-export const reviews: Review[] = [
+export const reviewsData: Review[] = [
   {
     id: 1,
     userId: "Leo",
