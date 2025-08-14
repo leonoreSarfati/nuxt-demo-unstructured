@@ -31,5 +31,13 @@ export const useUserStore = defineStore('user', {
 
       
     },
+
+    async addToWatchlist(movieId: number) {
+      if (this.user.watchlist.includes(movieId)) {
+        this.user.watchlist = this.user.watchlist.filter(id => id !== movieId)
+      } else {
+        this.user.watchlist.push(movieId)
+      }
+    }
   },
 })
