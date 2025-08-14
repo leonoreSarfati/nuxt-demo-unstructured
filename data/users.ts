@@ -7,5 +7,6 @@ export const users: User[] = [
     username: 'leo',
     favoriteMovies: [1, 2],
     watchedMovies: [1, 2],
+    watchlist: [3, 4]
   }
 ];

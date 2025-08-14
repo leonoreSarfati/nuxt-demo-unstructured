@@ -45,6 +45,11 @@
               :class="['icon', isActive('favorite', movie.id) ? 'icon-liked' : 'text-white']"
               @click="addToList($event,'favorite', movie.id)"
           />
+          <component
+              :is="IconClock"
+              :class="['icon', isActive('watchlist', movie.id) ? 'icon-clock' : 'text-white']"
+              @click="addToList($event,'watchlist', movie.id)"
+          />
           
         </div>
       </div>
@@ -121,6 +126,7 @@ const goToDetail = (movie) => {
 
 const IconHeart = HeroIcons["HeartIcon"] || null
 const IconEye = HeroIcons["EyeIcon"] || null
+const IconClock = HeroIcons["ClockIcon"] || null
 const userStore = useUserStore()
 
 
@@ -129,6 +135,9 @@ const isActive = (activeClass, movieId) => {
     return userStore.user.watchedMovies.includes(movieId)
   } else if (activeClass === 'favorite') {
     return userStore.user.favoriteMovies.includes(movieId)
+  }
+  else if (activeClass === 'watchlist') {
+    return userStore.user.watchlist.includes(movieId)
   }
   return false
 }
@@ -139,6 +148,9 @@ const addToList = (event: MouseEvent, activeClass, movieId) => {
     userStore.addToWatched(movieId)
   } else if (activeClass === 'favorite') {
     userStore.addToFavorite(movieId)
+  }
+  else if (activeClass === 'watchlist') {
+    userStore.addToWatchlist(movieId)
   }
 }
 
@@ -275,6 +287,9 @@ select {
   color: #22c55e;
 }
 
+.icon-clock {
+  color: #f59e0b;
+}
 .movie-actions {
   position: absolute;
   bottom: 10px;
