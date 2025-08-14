@@ -45,7 +45,7 @@ function onLogin() {
 }
 
 .base-button {
-  background-color: #FD43A0;
+  background-color: #3498DB;
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
@@ -61,7 +61,7 @@ function onLogin() {
 .site-title {
   font-size: 36px; 
   font-weight: bold;
-  color: #FD43A0;
+  color: #3498DB;
   margin:4px;
 }
 

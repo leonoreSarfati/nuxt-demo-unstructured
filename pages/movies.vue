@@ -179,7 +179,7 @@ const addToList = (event: MouseEvent, activeClass, movieId) => {
 .filter-wrapper Filter {
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #FD43A0;
+  border: 1px solid #3498DB;
   padding: 0.3rem 0.8rem;
   background-color: #111;
   color: white;
@@ -188,7 +188,7 @@ const addToList = (event: MouseEvent, activeClass, movieId) => {
 }
 
 .filter-wrapper Filter:hover {
-  border-color: #FD43A0;
+  border-color: #3498DB;
 }
 
 .movies-grid {
