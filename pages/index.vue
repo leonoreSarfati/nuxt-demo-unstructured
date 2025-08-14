@@ -152,7 +152,7 @@ const getUserByUsername = async (username) => {
 }
 
 .base-button {
-  background-color: #FD43A0;
+  background-color: #3498DB;
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
@@ -195,7 +195,7 @@ const getUserByUsername = async (username) => {
 .text-link {
   font-size: 16px;
   font-weight: semi-bold;
-  color: #FD43A0;
+  color: #3498DB;
   text-decoration: underline;
   margin:4px;
 }
