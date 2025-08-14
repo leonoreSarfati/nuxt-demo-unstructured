@@ -15,7 +15,6 @@
         <input class="small-text" v-model="email" type="email" placeholder="Email" />
         <input class="small-text" v-model="username" type="text" placeholder="Nom d'utilisateur" />
 
-
         <button class="base-button small-title" @click="handleRegister">
           Valider
         </button>
@@ -97,13 +96,10 @@ const handleLogin = async () => {
     userStore.setUser(user)
     console.log('Connecté !', user)
 
-
     onClose() // Fermer le formulaire
-    //await nextTick()
     // Redirection vers la page des films
     router.push('/movies')
 
-  
   } catch (error) {
     console.error('Erreur de connexion :', error)
     alert("Une erreur est survenue.")
@@ -130,7 +126,6 @@ const getUserByUsername = async (username) => {
     const user = users.find(u => u.username === username)
     return user ?? null
   }
-
 
 </script>
 
